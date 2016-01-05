@@ -8,6 +8,7 @@ data mining, machine learning, and complex sentiment analysis. In its current st
 
 - Primitive Twitter mining
 - Primitive sentiment ranking algorithms
+- Preliminary display method, via wordcloud
 
 ###TODO: 
 
@@ -15,6 +16,7 @@ data mining, machine learning, and complex sentiment analysis. In its current st
 - Improve sentiment ranking (further develop alg, cross reference with sentiment APIs)
 - Primitive Facebook mining
 - Create webcrawler to scrape articles/OP EDs
+- Have wordcloud not only reflect frequency, but also sentiment of the word, coloring negative words warm colors and positive words cool colors
 
 ###Dependencies:
 
