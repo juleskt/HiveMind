@@ -19,9 +19,11 @@ data mining, machine learning, and complex sentiment analysis. In its current st
 ###Dependencies:
 
 - Python-Twitter
+
   `sudo pip install python-twitter`
 
--WordCloud
+- WordCloud
+
   `sudo pip install wordcloud`
 
 ###References: 
