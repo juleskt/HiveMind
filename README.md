@@ -4,23 +4,23 @@ A project aimed to analyze the general populace's sentiment on topics using vari
 The end goal of SentimentOracle is to be able to relay information about public sentiment and mood on any search query. It will feature
 data mining, machine learning, and complex sentiment analysis. In its current stage, the data mining is being built up.
 
-#Progress:
+###Progress:
 
 - Primitive Twitter mining
 - Primitive sentiment ranking algorithms
 
-#TODO: 
+###TODO: 
 
 - Improve Twitter mining
 - Improve sentiment ranking (further develop alg, cross reference with sentiment APIs)
 - Primitive Facebook mining
 - Create webcrawler to scrape articles/OP EDs
 
-#Dependencies:
+###Dependencies:
 
 - Python-Twitter
 
-#References: 
+###References: 
 
 Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews." 
 Proceedings of the ACM SIGKDD International Conference on Knowledge 
