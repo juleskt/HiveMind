@@ -8,14 +8,15 @@
 #International World Wide Web conference (WWW-2005), May 10-14, 
 #2005, Chiba, Japan.
 
-import json
+from os import path
 import twitter
+from wordcloud import WordCloud
 
 #Authentication for Twitter API
-OAUTH_TOKEN = 'xxxxx-xxxxxxxxxxxxxxxxxxxxxxxx'
-OAUTH_SECRET = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-CONSUMER_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-CONSUMER_SECRET = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+OAUTH_TOKEN = 'xxxx'
+OAUTH_SECRET = 'xxxx'
+CONSUMER_KEY = 'xxxx'
+CONSUMER_SECRET = 'xxxx'
 
 def binarySearch(alist, item):
 	first = 0
@@ -73,7 +74,8 @@ def rateWordList(wordList):
 		#Set everything to lowercase to correctly binary search
 		index = index.lower()
 		#Make sure the word is not a link
-		if('http' not in index):
+		if('http' and 'RT' not in index):
+			#Test results file
 			#Remove non-alphabetic characters
 			index = ''.join(ch for ch in index if ch.isalpha())
 			#Binary searching to find words, very basic and primitive mass-sentiment analysis
@@ -83,6 +85,25 @@ def rateWordList(wordList):
 				rating-=1
 	return rating
 
+def generateCloud():
+	d = path.dirname(__file__)
+	text = open(path.join(d,'results.txt')).read()	
+
+	wordcloud = WordCloud().generate(text)	
+	# Display the generated image:
+	# the matplotlib way:
+	import matplotlib.pyplot as plt
+	plt.imshow(wordcloud)
+	plt.axis("off")
+
+	# take relative word frequencies into account, lower max_font_size
+	wordcloud = WordCloud(max_font_size=40, relative_scaling=.5).generate(text)
+	plt.figure()
+	plt.imshow(wordcloud)
+	plt.axis("off")
+	plt.show()
+
 while(True):
 	searchTerm = raw_input("Search term: ")
 	print rateWordList(TwitterSearch(searchTerm))
+	generateCloud()
