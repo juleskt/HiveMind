@@ -1,7 +1,7 @@
-# SentimentOracle
+# HiveMind
 A project aimed to analyze the general populace's sentiment on topics using various forms of data mining.
 
-The end goal of SentimentOracle is to be able to relay information about public sentiment and mood on any search query. It will feature
+The end goal of HiveMind is to be able to relay information about public sentiment and mood on any search query. It will feature
 data mining, machine learning, and complex sentiment analysis. In its current stage, the data mining is being built up.
 
 ###Progress:
