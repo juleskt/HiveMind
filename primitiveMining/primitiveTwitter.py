@@ -43,7 +43,6 @@ def TwitterSearch(searchWord):
 		OAUTH_TOKEN,OAUTH_SECRET)
 
 		#Test results file
-		f = open('results.txt','w')
 		#Make a search call to the API
 		search = twitterApi.GetSearch(term=searchWord, lang='en', result_type='recent', count=100, max_id='')
 		search += twitterApi.GetSearch(term=searchWord, lang='en', result_type='popular', count=100, max_id='')
@@ -55,11 +54,9 @@ def TwitterSearch(searchWord):
 			#Combining the tweets
 			tweets += t.text.encode('utf-8')
 			#Writing to a textfile for later API use
-			f.write(t.text.encode('utf-8') + '\n\n')
 		#Split tweets by word 
 		tweetByWord = tweets.split()
-		
-		f.close()
+
 		return tweetByWord
 	
 	except Exception as e:
@@ -69,20 +66,26 @@ def rateWordList(wordList):
 	rating = 0
 	posWords = open('positive-words.txt').read().splitlines()
 	negWords = open('negative-words.txt').read().splitlines()
+	f = open('results.txt','w')
 	#Parse words
 	for index in wordList:
 		#Set everything to lowercase to correctly binary search
 		index = index.lower()
 		#Make sure the word is not a link
-		if('http' and 'RT' not in index):
+		if('http' or 'RT' or 'rt' not in index):
 			#Test results file
 			#Remove non-alphabetic characters
+			f.write(index + '\n')
 			index = ''.join(ch for ch in index if ch.isalpha())
 			#Binary searching to find words, very basic and primitive mass-sentiment analysis
 			if(binarySearch(posWords,index)):
 				rating+=1
 			if(binarySearch(negWords,index)):
 				rating-=1
+		else:
+			wordList.remove(index)
+			print "Removed"
+	f.close()
 	return rating
 
 def generateCloud():
