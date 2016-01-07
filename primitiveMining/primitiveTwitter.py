@@ -50,7 +50,6 @@ def TwitterSearch(searchWord):
 
 		for t in search:
 			#print t.user.screen_name + ' (' + t.created_at + ')'
-			#tweets.append(t.text.encode('utf-8'))
 			#Combining the tweets
 			tweets += t.text.encode('utf-8')
 			#Writing to a textfile for later API use
@@ -94,7 +93,6 @@ def generateCloud():
 
 	wordcloud = WordCloud().generate(text)	
 	# Display the generated image:
-	# the matplotlib way:
 	import matplotlib.pyplot as plt
 	plt.imshow(wordcloud)
 	plt.axis("off")
