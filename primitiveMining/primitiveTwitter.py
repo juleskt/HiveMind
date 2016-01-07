@@ -71,15 +71,15 @@ def rateWordList(wordList):
 		#Set everything to lowercase to correctly binary search
 		index = index.lower()
 		#Make sure the word is not a link
-		if('http' or 'RT' or 'rt' not in index):
+		if 'http' or 'RT' or 'rt' not in index:
 			#Test results file
 			#Remove non-alphabetic characters
 			f.write(index + '\n')
 			index = ''.join(ch for ch in index if ch.isalpha())
 			#Binary searching to find words, very basic and primitive mass-sentiment analysis
-			if(binarySearch(posWords,index)):
+			if binarySearch(posWords,index):
 				rating+=1
-			if(binarySearch(negWords,index)):
+			if binarySearch(negWords,index):
 				rating-=1
 		else:
 			wordList.remove(index)
