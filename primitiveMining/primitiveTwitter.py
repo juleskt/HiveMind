@@ -1,4 +1,4 @@
-#Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews." 
+#Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews."
 #Proceedings of the ACM SIGKDD International Conference on Knowledge 
 #Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, 
 #Washington, USA, 
@@ -18,7 +18,7 @@ OAUTH_SECRET = 'xxxx'
 CONSUMER_KEY = 'xxxx'
 CONSUMER_SECRET = 'xxxx'
 
-def binarySearch(alist, item):
+def binarySearch(alist,item):
 	first = 0
 	last = len(alist)-1
 	found = False
@@ -35,48 +35,50 @@ def binarySearch(alist, item):
 				first = midpoint+1
 	return found
 
+
 def TwitterSearch(searchWord):
 	try:
-		#Create API object for calls
+		# Create API object for calls
 		twitterApi = twitter.Api(
 		CONSUMER_KEY, CONSUMER_SECRET,
 		OAUTH_TOKEN,OAUTH_SECRET)
 
-		#Test results file
-		#Make a search call to the API
+		# Test results file
+		# Make a search call to the API
 		search = twitterApi.GetSearch(term=searchWord, lang='en', result_type='recent', count=100, max_id='')
 		search += twitterApi.GetSearch(term=searchWord, lang='en', result_type='popular', count=100, max_id='')
 		tweets = ""
 
 		for t in search:
-			#print t.user.screen_name + ' (' + t.created_at + ')'
-			#Combining the tweets
+			# print t.user.screen_name + ' (' + t.created_at + ')'
+			# Combining the tweets
 			tweets += t.text.encode('utf-8')
-			#Writing to a textfile for later API use
-		#Split tweets by word 
+			# Writing to a textfile for later API use
+		# Split tweets by word
 		tweetByWord = tweets.split()
 
 		return tweetByWord
-	
+
 	except Exception as e:
 		print e
+
 
 def rateWordList(wordList):
 	rating = 0
 	posWords = open('positive-words.txt').read().splitlines()
 	negWords = open('negative-words.txt').read().splitlines()
 	f = open('results.txt','w')
-	#Parse words
+	# Parse words
 	for index in wordList:
-		#Set everything to lowercase to correctly binary search
+		# Set everything to lowercase to correctly binary search
 		index = index.lower()
-		#Make sure the word is not a link
+		# Make sure the word is not a link
 		if 'http' or 'RT' or 'rt' not in index:
-			#Test results file
-			#Remove non-alphabetic characters
+			# Test results file
+			# Remove non-alphabetic characters
 			f.write(index + '\n')
 			index = ''.join(ch for ch in index if ch.isalpha())
-			#Binary searching to find words, very basic and primitive mass-sentiment analysis
+			# Binary searching to find words, very basic and primitive mass-sentiment analysis
 			if binarySearch(posWords,index):
 				rating+=1
 			if binarySearch(negWords,index):
@@ -87,11 +89,12 @@ def rateWordList(wordList):
 	f.close()
 	return rating
 
+
 def generateCloud():
 	d = path.dirname(__file__)
-	text = open(path.join(d,'results.txt')).read()	
+	text = open(path.join(d,'results.txt')).read()
 
-	wordcloud = WordCloud().generate(text)	
+	wordcloud = WordCloud().generate(text)
 	# Display the generated image:
 	import matplotlib.pyplot as plt
 	plt.imshow(wordcloud)
@@ -107,4 +110,4 @@ def generateCloud():
 while(True):
 	searchTerm = raw_input("Search term: ")
 	print rateWordList(TwitterSearch(searchTerm))
-	generateCloud()
+#	generateCloud()
